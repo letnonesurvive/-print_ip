@@ -1,5 +1,4 @@
 #include <iostream>
-//#include <Windows.h>
 #include <string>
 #include <vector>
 #include <list>
@@ -20,7 +19,7 @@ template <size_t Index = 0, typename... Args>
 typename enable_if_t <Index < sizeof...(Args)>
 printTupleElements (const std::tuple <Args...>& theTuple) {
     cout << std::get <Index>(theTuple);
-    if (Index < sizeof...(Args) - 1) {
+    if constexpr (Index < sizeof...(Args) - 1) {
         cout << '.';
     }
     printTupleElements <Index + 1> (theTuple);
@@ -28,7 +27,7 @@ printTupleElements (const std::tuple <Args...>& theTuple) {
 
 template <typename... Args>
 void printTuple (const tuple<Args...>& theTuple) {
-    printTupleElements (theTuple);
+    printTupleElements <0, Args...> (theTuple);
     cout << endl;
 }
 
