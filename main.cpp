@@ -1,5 +1,5 @@
 #include <iostream>
-#include <Windows.h>
+//#include <Windows.h>
 #include <string>
 #include <vector>
 #include <list>
@@ -115,7 +115,7 @@ void print_ip (const T& theValue)
 
 int main()
 {
-    setlocale(LC_ALL, "Russian");
+    //setlocale(LC_ALL, "Russian");
 
     print_ip(int8_t{ -1 }); // 255
     print_ip(int16_t{ 0 }); // 0.0
