@@ -9,40 +9,40 @@
 
 using namespace std;
 
-//namespace tuple_namespace {
-//
-//template <size_t Index = 0, typename... Args>
-//typename enable_if_t <Index == sizeof...(Args)>
-//printTupleElements (const tuple<Args...>&) {
-//}
-//
-//template <size_t Index = 0, typename... Args>
-//typename enable_if_t <Index < sizeof...(Args)>
-//printTupleElements (const std::tuple <Args...>& theTuple) {
-//    cout << std::get <Index>(theTuple);
-//    if (Index < sizeof...(Args) - 1) {
-//        cout << '.';
-//    }
-//    printTupleElements <Index + 1> (theTuple);
-//}
-//
-//template <typename... Args>
-//void printTuple (const tuple<Args...>& theTuple) {
-//    printTupleElements (theTuple);
-//    cout << endl;
-//}
-//
-//template <class T>
-//constexpr bool is_same_type_pack() {
-//    return true;
-//}
-//
-//template <class T, class U, class... Rest>
-//constexpr bool is_same_type_pack() {
-//    return std::is_same<T, U>::value && is_same_type_pack<T, Rest...>();
-//}
-//
-//}
+namespace tuple_namespace {
+
+template <size_t Index = 0, typename... Args>
+typename enable_if_t <Index == sizeof...(Args)>
+printTupleElements (const tuple<Args...>&) {
+}
+
+template <size_t Index = 0, typename... Args>
+typename enable_if_t <Index < sizeof...(Args)>
+printTupleElements (const std::tuple <Args...>& theTuple) {
+    cout << std::get <Index>(theTuple);
+    if (Index < sizeof...(Args) - 1) {
+        cout << '.';
+    }
+    printTupleElements <Index + 1> (theTuple);
+}
+
+template <typename... Args>
+void printTuple (const tuple<Args...>& theTuple) {
+    printTupleElements (theTuple);
+    cout << endl;
+}
+
+template <class T>
+constexpr bool is_same_type_pack() {
+    return true;
+}
+
+template <class T, class U, class... Rest>
+constexpr bool is_same_type_pack() {
+    return std::is_same<T, U>::value && is_same_type_pack<T, Rest...>();
+}
+
+}
 
 namespace impl {
 
@@ -95,15 +95,15 @@ void print_ip (const Container<T, Allocator>& theContainer, long long)
     cout << endl;
 }
 
-//template<
-//    template <class ...> class Tuple,
-//    class... Args,
-//    class = enable_if_t <is_same_v <Tuple <Args...>, std::tuple <Args...>>>> 
-//void print_ip (const Tuple <Args...>& theTuple, short)
-//{
-//    static_assert (tuple_namespace::is_same_type_pack <Args...>(), "the same type of tuple required");
-//    tuple_namespace::printTuple (theTuple);
-//}
+template<
+    template <class ...> class Tuple,
+    class... Args,
+    class = enable_if_t <is_same_v <Tuple <Args...>, std::tuple <Args...>>>> 
+void print_ip (const Tuple <Args...>& theTuple, short)
+{
+    static_assert (tuple_namespace::is_same_type_pack <Args...>(), "the same type of tuple required");
+    tuple_namespace::printTuple (theTuple);
+}
 
 }
 
@@ -124,7 +124,7 @@ int main()
     print_ip(std::string{ "Hello, World!"}); // Hello, World!
     print_ip(std::vector<int>{100, 200, 300, 400}); // 100.200.300.400
     print_ip(std::list<short>{400, 300, 200, 100}); // 400.300.200.100
-    //print_ip(std::make_tuple(123, 456, 789, 0)); // 123.456.789.0
+    print_ip(std::make_tuple(123, 456, 789, 0)); // 123.456.789.0
 
 }
 
