@@ -10,13 +10,13 @@ using namespace std;
 
 namespace tuple_namespace {
 
-template <size_t Index = 0, typename... Args>
-typename enable_if_t <Index == sizeof...(Args)>
+template <size_t Index, typename... Args>
+enable_if_t <Index == sizeof...(Args)>
 printTupleElements (const tuple<Args...>&) {
 }
 
 template <size_t Index = 0, typename... Args>
-typename enable_if_t <Index < sizeof...(Args)>
+enable_if_t <Index < sizeof...(Args)>
 printTupleElements (const std::tuple <Args...>& theTuple) {
     cout << std::get <Index>(theTuple);
     if constexpr (Index < sizeof...(Args) - 1) {
@@ -26,8 +26,8 @@ printTupleElements (const std::tuple <Args...>& theTuple) {
 }
 
 template <typename... Args>
-void printTuple (const tuple<Args...>& theTuple) {
-    printTupleElements <0, Args...> (theTuple);
+void printTuple (const tuple<Args...>& theTuple) {;
+    printTupleElements (theTuple);
     cout << endl;
 }
 
